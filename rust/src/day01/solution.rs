@@ -1,7 +1,16 @@
 use std::fs;
 
-pub fn main() {
-    let file_path = "src/day01/input.txt";
+pub fn test_results() -> (String, String) {
+    let part1 = String::from("22000");
+    let part2 = String::from("45000");
+    return (part1, part2)
+}
+
+pub fn solve(target_input: &str) -> (String, String){
+    let base_path = "src/day01"; // TODO: how to make it reusable?
+
+    let file_path = String::from(format!("{}/{}", base_path, target_input));
+
     println!("In file {}", file_path);
 
     let contents = fs::read_to_string(file_path).expect("Should have been able to read the file");
@@ -26,6 +35,5 @@ pub fn main() {
     let part1 = value_stacks[0];
     let part2 = value_stacks[0] + value_stacks[1] + value_stacks[2];
 
-    println!("Part 1: {}", part1);
-    println!("Part 2: {}", part2);
+    return (part1.to_string(), part2.to_string());
 }
