@@ -1,7 +1,7 @@
-use std::fs;
+use crate::utils;
 
 pub fn test_results() -> (String, String) {
-    let part1 = String::from("22000");
+    let part1 = String::from("24000");
     let part2 = String::from("45000");
     return (part1, part2)
 }
@@ -13,7 +13,7 @@ pub fn solve(target_input: &str) -> (String, String){
 
     println!("In file {}", file_path);
 
-    let contents = fs::read_to_string(file_path).expect("Should have been able to read the file");
+    let contents = utils::helper::read_file(file_path);
 
     let mut current_value = 0;
     let mut value_stacks: Vec<i32> = Vec::new();
@@ -33,7 +33,7 @@ pub fn solve(target_input: &str) -> (String, String){
     value_stacks.reverse();
 
     let part1 = value_stacks[0];
-    let part2 = value_stacks[0] + value_stacks[1] + value_stacks[2];
+    let part2: i32 = value_stacks[0..=2].iter().sum();
 
     return (part1.to_string(), part2.to_string());
 }

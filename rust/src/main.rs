@@ -55,7 +55,7 @@ fn main() {
         );
         assert_eq!(
             &part2, &expected_result_part2,
-            "Unexpected test results on part 1"
+            "Unexpected test results on part 2"
         );
     }
 }
