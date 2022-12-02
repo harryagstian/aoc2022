@@ -2,6 +2,7 @@ use chrono::{Datelike, Local};
 use clap::Parser;
 
 mod day01;
+mod day02;
 mod utils;
 
 #[derive(Parser, Debug)]
@@ -26,24 +27,26 @@ fn main() {
     let expected_result_part1: String;
     let expected_result_part2: String;
 
-    let target_input = match args.test {
-        true => "test.txt",
-        false => "input.txt",
-    };
+    let target_input = if args.test { "test.txt" } else { "input.txt" };
 
     match args.day {
         // TODO: how to make this dynamic?
         1 => {
             (part1, part2) = day01::solution::solve(target_input);
-
-            if args.test {
-                (expected_result_part1, expected_result_part2) = day01::solution::test_results();
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day01::solution::test_results()
             } else {
-                expected_result_part1 = String::from("");
-                expected_result_part2 = String::from("");
+                (String::from(""), String::from(""))
             }
         }
-
+        2 => {
+            (part1, part2) = day02::solution::solve(target_input);
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day02::solution::test_results()
+            } else {
+                (String::from(""), String::from(""))
+            }
+        }
         _ => todo!(),
     }
     utils::logger::print_answers(&part1, &part2);

@@ -3,17 +3,13 @@ use crate::utils;
 pub fn test_results() -> (String, String) {
     let part1 = String::from("24000");
     let part2 = String::from("45000");
-    return (part1, part2)
+    return (part1, part2);
 }
 
-pub fn solve(target_input: &str) -> (String, String){
+pub fn solve(target_input: &str) -> (String, String) {
     let base_path = "src/day01"; // TODO: how to make it reusable?
 
-    let file_path = String::from(format!("{}/{}", base_path, target_input));
-
-    println!("In file {}", file_path);
-
-    let contents = utils::helper::read_file(file_path);
+    let contents = utils::helper::read_file(base_path, target_input);
 
     let mut current_value = 0;
     let mut value_stacks: Vec<i32> = Vec::new();
