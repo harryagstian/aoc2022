@@ -1,3 +1,5 @@
+const DAY: &str = "02";
+
 use std::collections::HashMap;
 
 use crate::utils;
@@ -71,9 +73,7 @@ pub fn determine_score_part_2(
 }
 
 pub fn solve(target_input: &str) -> (String, String) {
-    let base_path = "src/day02"; // TODO: how to make it reusable?
-
-    let contents = utils::helper::read_file(base_path, target_input);
+    let contents = utils::helper::read_file(DAY, target_input);
 
     let score_reference_table = HashMap::from([
         ("A", 1), // rock

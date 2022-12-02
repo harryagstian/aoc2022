@@ -1,7 +1,7 @@
 use std::fs;
 
-pub fn read_file(base_path: &str, target_input: &str) -> String {
-    let file_path = String::from(format!("{}/{}", base_path, target_input));
+pub fn read_file(day: &str, target_input: &str) -> String {
+    let file_path = String::from(format!("src/day{}/{}", day, target_input));
 
     println!("In file {}", file_path);
 

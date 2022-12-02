@@ -1,3 +1,5 @@
+const DAY: &str = "01";
+
 use crate::utils;
 
 pub fn test_results() -> (String, String) {
@@ -7,9 +9,7 @@ pub fn test_results() -> (String, String) {
 }
 
 pub fn solve(target_input: &str) -> (String, String) {
-    let base_path = "src/day01"; // TODO: how to make it reusable?
-
-    let contents = utils::helper::read_file(base_path, target_input);
+    let contents = utils::helper::read_file(DAY, target_input);
 
     let mut current_value = 0;
     let mut value_stacks: Vec<i32> = Vec::new();
