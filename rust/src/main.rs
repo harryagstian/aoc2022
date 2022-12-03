@@ -3,6 +3,7 @@ use clap::Parser;
 
 mod day01;
 mod day02;
+mod day03;
 mod utils;
 
 #[derive(Parser, Debug)]
@@ -43,6 +44,14 @@ fn main() {
             (part1, part2) = day02::solution::solve(target_input);
             (expected_result_part1, expected_result_part2) = if args.test {
                 day02::solution::test_results()
+            } else {
+                (String::from(""), String::from(""))
+            }
+        }
+        3 => {
+            (part1, part2) = day03::solution::solve(target_input);
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day03::solution::test_results()
             } else {
                 (String::from(""), String::from(""))
             }

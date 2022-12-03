@@ -1,7 +1,5 @@
 const DAY: &str = "template";
 
-use std::collections::HashMap;
-
 use crate::utils;
 
 pub fn test_results() -> (String, String) {
