@@ -10,11 +10,11 @@ mod utils;
 
 #[derive(Parser, Debug)]
 struct Args {
-    // Run against test.txt instead of input.txt
+    /// Run against test.txt instead of input.txt
     #[arg(short, long, default_value_t = false)]
     test: bool,
 
-    // What day to solve
+    /// What day to solve
     #[arg(short, long, default_value_t = get_current_day())]
     day: u32,
 }
