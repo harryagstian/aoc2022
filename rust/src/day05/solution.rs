@@ -73,16 +73,12 @@ fn parse_input(stacks: &mut Vec<Vec<String>>, l: &str) {
     // go through each line until its empty
     while line.len() > 0 {
         if stacks.len() <= counter {
+            // initialize new stack if we never been here before
             stacks.push(Vec::new());
         }
 
-        let value: Vec<char>;
-        if line.len() == 3 {
-            // handle last 3 chars in a line
-            value = line.drain(0..).collect();
-        } else {
-            // take next 3 chars, delete the next char - next char is a separator / whitespace
-            value = line.drain(0..=2).collect();
+        let value: Vec<char> = line.drain(0..=2).collect();
+        if line.len() > 0 {
             line.remove(0);
         }
 
