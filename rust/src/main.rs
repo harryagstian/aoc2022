@@ -5,6 +5,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 mod utils;
 
 #[derive(Parser, Debug)]
@@ -65,7 +66,15 @@ fn main() {
                 (String::from(""), String::from(""))
             }
         }
-        _ => todo!(),
+        5 => {
+            (part1, part2) = day05::solution::solve(target_input);
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day05::solution::test_results()
+            } else {
+                (String::from(""), String::from(""))
+            }
+        }
+        _ => todo!("No such day"),
     }
     utils::logger::print_answers(&part1, &part2);
 
