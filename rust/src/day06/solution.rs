@@ -36,8 +36,6 @@ pub fn solve(target_input: &str) -> (String, String) {
             if part1 != 0 && part2 != 0 {
                 break;
             }
-
-            // dbg!(current_string, current_set.len());
         }
     }
 
