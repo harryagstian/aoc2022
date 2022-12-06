@@ -6,6 +6,7 @@ mod day02;
 mod day03;
 mod day04;
 mod day05;
+mod day06;
 mod utils;
 
 #[derive(Parser, Debug)]
@@ -70,6 +71,14 @@ fn main() {
             (part1, part2) = day05::solution::solve(target_input);
             (expected_result_part1, expected_result_part2) = if args.test {
                 day05::solution::test_results()
+            } else {
+                (String::from(""), String::from(""))
+            }
+        }
+        6 => {
+            (part1, part2) = day06::solution::solve(target_input);
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day06::solution::test_results()
             } else {
                 (String::from(""), String::from(""))
             }
