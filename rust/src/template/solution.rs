@@ -1,4 +1,4 @@
-const DAY: &str = "08";
+const DAY: &str = "template";
 
 use crate::utils;
 
@@ -11,8 +11,8 @@ pub fn test_results() -> (String, String) {
 pub fn solve(target_input: &str) -> (String, String) {
     let contents = utils::helper::read_file(DAY, target_input);
 
-    let part1 = 0;
-    let part2 = 0;
+    let mut part1 = 0;
+    let mut part2 = 0;
 
     for line in contents.lines() {
     }
