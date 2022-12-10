@@ -13,32 +13,24 @@ pub fn test_results() -> (String, String) {
 pub fn solve(target_input: &str) -> (String, String) {
     let contents = utils::helper::read_file(DAY, target_input);
 
-    let mut position = vec![vec![0, 0], vec![0, 0]]; // head, tail
-    let mut visited: HashSet<Vec<i32>> = HashSet::new();
+    let mut position = vec![vec![0, 0]; 10]; // head --> tail
+    let mut visited_part_1: HashSet<Vec<i32>> = HashSet::new();
+    let mut visited_part_2: HashSet<Vec<i32>> = HashSet::new();
 
-    visited.insert(position[1].clone());
-
-    for line in contents.lines() {
-        do_move(&mut position, &mut visited, &line);
-    }
-
-    let part1 = &visited.len();
-
-    // part 2
-    position = vec![vec![0, 0]; 10];
-    visited.clear();
-    visited.insert(position[9].clone());
+    visited_part_1.insert(position[1].clone());
+    visited_part_1.insert(position[9].clone());
 
     for line in contents.lines() {
-        do_move(&mut position, &mut visited, &line);
+        do_move(&mut position, &mut visited_part_1, &mut visited_part_2, &line);
     }
 
-    let part2 = &visited.len();
+    let part1 = &visited_part_1.len();
+    let part2 = &visited_part_2.len();
 
     return (part1.to_string(), part2.to_string());
 }
 
-fn do_move(position: &mut Vec<Vec<i32>>, visited: &mut HashSet<Vec<i32>>, line: &str) {
+fn do_move(position: &mut Vec<Vec<i32>>, visited_part_1: &mut HashSet<Vec<i32>>, visited_part_2: &mut HashSet<Vec<i32>>, line: &str) {
     let temp: Vec<&str> = line.split_whitespace().collect();
     let dir = temp[0].to_string();
     let step_count = temp[1].parse().unwrap();
@@ -56,14 +48,15 @@ fn do_move(position: &mut Vec<Vec<i32>>, visited: &mut HashSet<Vec<i32>>, line: 
         position[0][0] += direction_value[0];
         position[0][1] += direction_value[1];
 
-        for tail_index in 1..position.len() {
+        for tail_index in 1..10 {
             let tail_move = determine_tail_move(&position[tail_index - 1], &position[tail_index]);
 
             // move tail
             position[tail_index][0] += tail_move[0];
             position[tail_index][1] += tail_move[1];
 
-            visited.insert(position[position.len()-1].clone());
+            visited_part_1.insert(position[1].clone());
+            visited_part_2.insert(position[9].clone());
         }
     }
 }
