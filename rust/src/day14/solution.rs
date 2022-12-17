@@ -5,7 +5,7 @@ use std::collections::HashSet;
 use crate::utils;
 
 struct Simulation {
-    map_data: HashSet<Vec<i32>>,
+    map_data: HashSet<[i32; 2]>,
     max_depth: i32,
     sand_count: i32,
     answer: [i32; 2],
@@ -26,7 +26,7 @@ impl Simulation {
         self.max_depth = self.max_depth.max(new_value);
     }
 
-    pub fn init_map(&mut self, start: &Vec<i32>, end: &Vec<i32>) {
+    pub fn init_map(&mut self, start: &[i32; 2], end: &[i32; 2]) {
         self.set_max_depth(start[1]);
         self.set_max_depth(end[1]);
 
@@ -46,7 +46,7 @@ impl Simulation {
             // if vertical, then only direction_y changes
             let new_x = start[0] + (direction_x * i);
             let new_y = start[1] + (direction_y * i);
-            let new_coordinate = vec![new_x, new_y];
+            let new_coordinate = [new_x, new_y];
 
             self.map_data.insert(new_coordinate);
 
@@ -61,7 +61,7 @@ impl Simulation {
             let mut current_sand_position_y = 0;
 
             loop {
-                if self.map_data.contains(&vec![500, 0]) {
+                if self.map_data.contains(&[500, 0]) {
                     // solve for part 2
                     self.answer[1] = self.sand_count;
                     return;
@@ -75,7 +75,7 @@ impl Simulation {
                     }
 
                     // settle immediately, since the abyss is infinite-long floor
-                    let new_coordinate = vec![current_sand_position_x, current_sand_position_y];
+                    let new_coordinate = [current_sand_position_x, current_sand_position_y];
                     self.map_data.insert(new_coordinate);
                     self.sand_count += 1;
 
@@ -85,10 +85,10 @@ impl Simulation {
                 // check if down is a sand / rock
                 if self
                     .map_data
-                    .contains(&vec![current_sand_position_x, current_sand_position_y + 1])
+                    .contains(&[current_sand_position_x, current_sand_position_y + 1])
                 {
                     // check if down-left exists
-                    if !self.map_data.contains(&vec![
+                    if !self.map_data.contains(&[
                         current_sand_position_x - 1,
                         current_sand_position_y + 1,
                     ]) {
@@ -99,7 +99,7 @@ impl Simulation {
                     }
 
                     // check if down-right exists
-                    if !self.map_data.contains(&vec![
+                    if !self.map_data.contains(&[
                         current_sand_position_x + 1,
                         current_sand_position_y + 1,
                     ]) {
@@ -110,7 +110,7 @@ impl Simulation {
                     }
 
                     // otherwise, settle on current position
-                    let new_coordinate = vec![current_sand_position_x, current_sand_position_y];
+                    let new_coordinate = [current_sand_position_x, current_sand_position_y];
 
                     self.map_data.insert(new_coordinate);
                     self.sand_count += 1;
@@ -160,9 +160,9 @@ pub fn solve(target_input: &str) -> (String, String) {
         // e.g:
         // 498,4 -> 498,6 -> 496,6
         // [[498,4],[498,6],[496,6]]
-        let arr: Vec<Vec<i32>> = line
+        let arr: Vec<[i32; 2]> = line
             .split("->")
-            .map(|f| f.trim().split(",").map(|v| v.parse().unwrap()).collect())
+            .map(|f| f.trim().split(",").map(|v| v.parse().unwrap()).collect::<Vec<i32>>().try_into().unwrap())
             .collect();
 
         for index in 1..arr.len() {
