@@ -1,7 +1,5 @@
 const DAY: &str = "15";
 
-use std::collections::HashSet;
-
 use itertools::Itertools;
 
 use crate::utils;
