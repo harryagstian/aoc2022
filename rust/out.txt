@@ -1,0 +1,42 @@
+   Compiling aoc2022 v0.1.0 (/root/projects/aoc2022/rust)
+warning: unused variable: `iter`
+   --> src/day23/solution.rs:212:9
+    |
+212 |     for iter in 0..10 {
+    |         ^^^^ help: if this is intentional, prefix it with an underscore: `_iter`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+error[E0502]: cannot borrow `*self` as mutable because it is also borrowed as immutable
+   --> src/day23/solution.rs:179:17
+    |
+174 |         for (new_pos, current_elves) in self.first_half_data.iter() {
+    |                                         ---------------------------
+    |                                         |
+    |                                         immutable borrow occurs here
+    |                                         immutable borrow later used here
+...
+179 |                 self.update_boundary(*new_pos);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here
+
+warning: variable does not need to be mutable
+   --> src/day23/solution.rs:199:9
+    |
+199 |     let mut part1 = 0;
+    |         ----^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: variable does not need to be mutable
+   --> src/day23/solution.rs:200:9
+    |
+200 |     let mut part2 = 0;
+    |         ----^^^^^
+    |         |
+    |         help: remove this `mut`
+
+For more information about this error, try `rustc --explain E0502`.
+warning: `aoc2022` (bin "aoc2022") generated 3 warnings
+error: could not compile `aoc2022` due to previous error; 3 warnings emitted
