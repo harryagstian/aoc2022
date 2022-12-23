@@ -32,7 +32,7 @@ impl Directions {
 #[derive(Debug)]
 struct Map {
     data: HashSet<[i32; 2]>,
-    first_half_data: HashMap<[i32; 2], Vec<([i32; 2], Directions)>>, // new_pos, Vector<(old_pos, move_direction)>
+    first_half_data: HashMap<[i32; 2], Vec<[i32; 2]>>, // new_pos, Vector<old_pos>
     coordinate_check_target: Vec<Vec<Directions>>,
     elf_previously_moves: bool,
     boundary: [[i32; 2]; 2],
@@ -141,14 +141,12 @@ impl Map {
     fn first_half(&mut self) {
         self.first_half_data.drain(); // empty the data
 
-        let mut elf_moves = false; // check if any elves has moved
         for pos in self.data.iter() {
             // if there is no elf surrounding current elf, do nothing
             if !self.elf_in_surrounding(pos) {
                 continue;
             }
 
-            elf_moves = true;
             // otherwise, check based on directions priority
             for check_target in self.coordinate_check_target.iter() {
                 let mut eligible_to_move = true;
@@ -172,24 +170,24 @@ impl Map {
                         new_vec = self.first_half_data.get(&new_pos).unwrap().to_vec();
                     }
 
-                    new_vec.push((*pos, check_target[0]));
+                    new_vec.push(*pos);
 
                     self.first_half_data.insert(new_pos, new_vec);
                     break;
                 }
             }
         }
-
-        self.elf_previously_moves = elf_moves;
     }
 
     fn second_half(&mut self) {
         let mut new_pos_arr: Vec<[i32; 2]> = Vec::new();
+        self.elf_previously_moves = self.first_half_data.len() > 0; // check if any elves has moved in current round
+
         // moves all elves simultaneously
         for (new_pos, current_elves) in self.first_half_data.iter() {
             // only moves elves that new_pos doesn't conflict with other elves
             if current_elves.len() == 1 {
-                let (old_pos, _) = current_elves.last().unwrap();
+                let old_pos = current_elves.last().unwrap();
                 self.data.remove(old_pos);
                 self.data.insert(*new_pos);
                 new_pos_arr.push(*new_pos);
