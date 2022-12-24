@@ -16,6 +16,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day17;
 mod day18;
 mod day20;
 mod day23;
@@ -163,6 +164,14 @@ fn main() {
             (part1, part2) = day15::solution::solve(target_input, args.test);
             (expected_result_part1, expected_result_part2) = if args.test {
                 day15::solution::test_results()
+            } else {
+                (String::from(""), String::from(""))
+            }
+        }
+        17 => {
+            (part1, part2) = day17::solution::solve(target_input);
+            (expected_result_part1, expected_result_part2) = if args.test {
+                day17::solution::test_results()
             } else {
                 (String::from(""), String::from(""))
             }
